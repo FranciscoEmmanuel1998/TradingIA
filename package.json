@@ -28,6 +28,7 @@
     "exchanges:quick": "tsx scripts/quick-exchange-test.js",
     "feeds:test": "tsx scripts/test-websocket-feeds.js",
     "signals:test": "tsx scripts/test-signal-engine.js",
+    "decision:test": "tsx src/tests/DecisionEngineRules.test.ts",
     "integration:real": "tsx scripts/real-integration-complete.js",
     "nuclear:verify": "tsx scripts/nuclear-verification.js",
     "verify:real": "node scripts/verify-real-system.js",

@@ -62,6 +62,7 @@ Para producción, se recomienda desplegar el frontend y el servicio realtime en 
 ## Principales módulos
 
 - **RealWebSocketFeeds:** Conexión y gestión de datos en tiempo real desde exchanges.
+- **SocketIOFeedAdapter:** Adaptador que consume los ticks del servicio realtime y los publica en el EventBus.
 - **server.js (realtime-service):** Retransmisión de datos a clientes vía Socket.IO.
 - **Dashboards y paneles:** Visualización y análisis de datos de mercado y señales.
 
@@ -135,6 +136,7 @@ TradingIA is a platform that integrates real-time market data from actual exchan
 ## Usage
 
 The frontend connects to the realtime service to receive market data and signals in real time. You can visualize dashboards, tickers, prediction panels, and more.
+Start the `SocketIOFeedAdapter` in your application to forward ticks from the realtime service into the internal EventBus. Configure the connection using the `REALTIME_URL` environment variable if needed.
 
 ## Deployment
 
@@ -143,6 +145,7 @@ For production, it is recommended to deploy the frontend and realtime service on
 ## Main Modules
 
 - **RealWebSocketFeeds:** Connection and management of real-time data from exchanges.
+- **SocketIOFeedAdapter:** Adapter that consumes ticks from the realtime service and publishes them into the EventBus.
 - **server.js (realtime-service):** Data retransmission to clients via Socket.IO.
 - **Dashboards and panels:** Visualization and analysis of market data and signals.
 

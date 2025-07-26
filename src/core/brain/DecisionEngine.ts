@@ -1,6 +1,7 @@
 // 🎯 MOTOR DE DECISIONES - Inteligencia Estratégica
 import { Decision, SystemState } from '../interfaces';
 import { EventBus } from '../../circulation/channels/EventBus';
+import { realMarketFeed } from '../feeds/RealMarketFeed';
 
 export class DecisionEngine {
   private eventBus: EventBus;
@@ -87,24 +88,64 @@ export class DecisionEngine {
       id: `market_decision_${Date.now()}`,
       type: 'trading',
       action: 'hold',
-      confidence: signal.strength || 0.5,
+      confidence: 0.5,
       shouldExecute: false,
       timestamp: Date.now(),
-      reasoning: 'Análisis de señal de mercado'
+      reasoning: 'Análisis técnico de mercado'
     };
 
-    // Lógica de decisión de trading
-    if (signal.type === 'buy' && signal.strength > 0.7) {
-      decision.action = 'buy';
-      decision.shouldExecute = true;
-      decision.reasoning = `Señal de compra fuerte (${signal.strength})`;
-    } else if (signal.type === 'sell' && signal.strength > 0.7) {
-      decision.action = 'sell';
-      decision.shouldExecute = true;
-      decision.reasoning = `Señal de venta fuerte (${signal.strength})`;
+    const symbol = signal.symbol || 'BTC/USD';
+    const rsi = this.calculateRSI(symbol);
+    const ema20 = this.calculateEMA(symbol, 20);
+    const ema50 = this.calculateEMA(symbol, 50);
+    const macd = this.calculateMACD(symbol);
+
+    if (rsi !== null && ema20 !== null && ema50 !== null && macd !== null) {
+      if (ema20 > ema50 && rsi < 30 && macd > 0) {
+        decision.action = 'buy';
+        decision.shouldExecute = true;
+        decision.confidence = this.calculateBuyConfidence(rsi, ema20, ema50, macd);
+        decision.reasoning = `EMA20 ${ema20.toFixed(2)} > EMA50 ${ema50.toFixed(2)}, RSI ${rsi.toFixed(1)} < 30, MACD ${macd.toFixed(2)} > 0`;
+      } else if (ema20 < ema50 && rsi > 70 && macd < 0) {
+        decision.action = 'sell';
+        decision.shouldExecute = true;
+        decision.confidence = this.calculateSellConfidence(rsi, ema20, ema50, macd);
+        decision.reasoning = `EMA20 ${ema20.toFixed(2)} < EMA50 ${ema50.toFixed(2)}, RSI ${rsi.toFixed(1)} > 70, MACD ${macd.toFixed(2)} < 0`;
+      }
     }
 
     return decision;
+  }
+
+  private calculateEMA(symbol: string, period: number): number | null {
+    return realMarketFeed.calculateEMA(symbol, period);
+  }
+
+  private calculateRSI(symbol: string, period: number = 14): number | null {
+    return realMarketFeed.calculateRSI(symbol, period);
+  }
+
+  private calculateMACD(symbol: string): number | null {
+    const ema12 = realMarketFeed.calculateEMA(symbol, 12);
+    const ema26 = realMarketFeed.calculateEMA(symbol, 26);
+    if (ema12 === null || ema26 === null) return null;
+    return ema12 - ema26;
+  }
+
+  private calculateBuyConfidence(rsi: number, ema20: number, ema50: number, macd: number): number {
+    let confidence = 0.7;
+    confidence += (30 - rsi) / 100;
+    confidence += Math.min(0.1, (ema20 - ema50) / ema50);
+    confidence += macd > 0 ? 0.05 : 0;
+    return Math.max(0, Math.min(1, confidence));
+  }
+
+  private calculateSellConfidence(rsi: number, ema20: number, ema50: number, macd: number): number {
+    let confidence = 0.7;
+    confidence += (rsi - 70) / 100;
+    confidence += Math.min(0.1, (ema50 - ema20) / ema20);
+    confidence += macd < 0 ? 0.05 : 0;
+    return Math.max(0, Math.min(1, confidence));
   }
 
   private calculateSystemConfidence(systemState: any): number {
