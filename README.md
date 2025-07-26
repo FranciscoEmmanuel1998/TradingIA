@@ -1,73 +1,160 @@
-# Welcome to your Lovable project
+# TradingIA
 
-## Project info
+Sistema avanzado de trading algorítmico y monitoreo de mercados en tiempo real.
 
-**URL**: https://lovable.dev/projects/17748b22-e9b1-4353-8c22-9179f2adecd5
+## Descripción
 
-## How can I edit this code?
+TradingIA es una plataforma que integra datos de mercado en tiempo real desde exchanges reales (Binance, KuCoin, Coinbase, etc.) mediante conexiones WebSocket, permitiendo análisis, visualización y generación de señales de trading. El sistema está diseñado para ser modular, escalable y fácil de extender.
 
-There are several ways of editing your application.
+## Tecnologías principales
 
-**Use Lovable**
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, shadcn-ui
+- **Backend/Realtime:** Node.js, Express, Socket.IO, WebSocket
+- **Otros:** PostCSS, ESLint, arquitecturas modulares
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/17748b22-e9b1-4353-8c22-9179f2adecd5) and start prompting.
+## Estructura del proyecto
 
-Changes made via Lovable will be committed automatically to this repo.
+- `src/` — Código principal del frontend y lógica de negocio
+- `realtime-service/` — Servicio Node.js para feeds WebSocket y retransmisión de datos vía Socket.IO
+- `public/` — Archivos estáticos
+- `scripts/` — Scripts de verificación y pruebas
+- `memory-bank/` — Documentos de arquitectura y contexto
 
-**Use your preferred IDE**
+## Instalación y ejecución
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Clona el repositorio:**
+   ```sh
+   git clone https://github.com/FranciscoEmmanuel1998/TradingIA.git
+   cd TradingIA
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. **Instala dependencias del frontend:**
+   ```sh
+   npm install
+   ```
 
-Follow these steps:
+3. **Instala dependencias del servicio realtime:**
+   ```sh
+   cd realtime-service
+   npm install
+   cd ..
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+4. **Inicia el frontend:**
+   ```sh
+   npm run dev
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+5. **Inicia el servicio realtime:**
+   ```sh
+   cd realtime-service
+   node server.js
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Uso
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+El frontend se conecta al servicio realtime para recibir datos de mercado y señales en tiempo real. Puedes visualizar dashboards, tickers, paneles de predicción y más.
 
-**Edit a file directly in GitHub**
+## Despliegue
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Para producción, se recomienda desplegar el frontend y el servicio realtime en servidores separados. Puedes usar servicios como Vercel, Netlify, o tu propio VPS.
 
-**Use GitHub Codespaces**
+## Principales módulos
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **RealWebSocketFeeds:** Conexión y gestión de datos en tiempo real desde exchanges.
+- **server.js (realtime-service):** Retransmisión de datos a clientes vía Socket.IO.
+- **Dashboards y paneles:** Visualización y análisis de datos de mercado y señales.
 
-## What technologies are used for this project?
+## Contribuir
 
-This project is built with:
+1. Haz un fork del repositorio.
+2. Crea una rama para tu mejora o corrección.
+3. Realiza tus cambios y haz un pull request.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Contacto y soporte
 
-## How can I deploy this project?
+Para dudas, sugerencias o soporte, abre un issue en GitHub o contacta a FranciscoEmmanuel1998.
 
-Simply open [Lovable](https://lovable.dev/projects/17748b22-e9b1-4353-8c22-9179f2adecd5) and click on Share -> Publish.
+---
+© 2025 TradingIA
+---
 
-## Can I connect a custom domain to my Lovable project?
+# TradingIA (English)
 
-Yes, you can!
+Advanced algorithmic trading system and real-time market monitoring.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Description
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+TradingIA is a platform that integrates real-time market data from actual exchanges (Binance, KuCoin, Coinbase, etc.) using WebSocket connections, enabling analysis, visualization, and generation of trading signals. The system is designed to be modular, scalable, and easy to extend.
+
+## Main Technologies
+
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, shadcn-ui
+- **Backend/Realtime:** Node.js, Express, Socket.IO, WebSocket
+- **Others:** PostCSS, ESLint, modular architectures
+
+## Project Structure
+
+- `src/` — Main frontend code and business logic
+- `realtime-service/` — Node.js service for WebSocket feeds and data retransmission via Socket.IO
+- `public/` — Static files
+- `scripts/` — Verification and test scripts
+- `memory-bank/` — Architecture and context documents
+
+## Installation & Usage
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/FranciscoEmmanuel1998/TradingIA.git
+   cd TradingIA
+   ```
+
+2. **Install frontend dependencies:**
+   ```sh
+   npm install
+   ```
+
+3. **Install realtime service dependencies:**
+   ```sh
+   cd realtime-service
+   npm install
+   cd ..
+   ```
+
+4. **Start the frontend:**
+   ```sh
+   npm run dev
+   ```
+
+5. **Start the realtime service:**
+   ```sh
+   cd realtime-service
+   node server.js
+   ```
+
+## Usage
+
+The frontend connects to the realtime service to receive market data and signals in real time. You can visualize dashboards, tickers, prediction panels, and more.
+
+## Deployment
+
+For production, it is recommended to deploy the frontend and realtime service on separate servers. You can use services like Vercel, Netlify, or your own VPS.
+
+## Main Modules
+
+- **RealWebSocketFeeds:** Connection and management of real-time data from exchanges.
+- **server.js (realtime-service):** Data retransmission to clients via Socket.IO.
+- **Dashboards and panels:** Visualization and analysis of market data and signals.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a branch for your improvement or fix.
+3. Make your changes and submit a pull request.
+
+## Contact & Support
+
+For questions, suggestions, or support, open an issue on GitHub or contact FranciscoEmmanuel1998.
+
+---
+© 2025 TradingIA
