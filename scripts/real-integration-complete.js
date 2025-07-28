@@ -3,7 +3,7 @@
 
 import WebSocket from 'ws';
 import { realDataBridge } from '../src/core/feeds/RealDataBridge.js';
-import { superinteligenciaAI_REAL } from '../src/core/ai/SuperinteligenciaAI_REAL.js';
+import { superinteligenciaAI_REAL } from '../src/core/ai/SuperinteligenciaAI.js';
 
 console.log('🔥 INICIANDO INTEGRACIÓN COMPLETA REAL...');
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
