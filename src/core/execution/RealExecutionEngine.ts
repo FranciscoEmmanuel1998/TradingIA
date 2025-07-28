@@ -180,16 +180,17 @@ export class RealExecutionEngine {
     }
 
     try {
-      // Aquí implementaríamos la llamada real a la API de órdenes de Kraken
-      // Por ahora retornamos un placeholder que indica que la conexión es real
       console.log('🔱 Ejecutando orden real en Kraken...');
-      
-      // TODO: Implementar llamada real a Kraken addOrder API
-      // const response = await this.krakenConnector.placeOrder(order);
+      const response = await this.krakenConnector.placeOrder(
+        order.symbol,
+        order.side,
+        order.quantity,
+        order.price
+      );
 
       return {
         success: true,
-        orderId: `kraken_${Date.now()}`,
+        orderId: response.txid[0],
         exchange: 'kraken',
         symbol: order.symbol,
         side: order.side,
@@ -216,13 +217,16 @@ export class RealExecutionEngine {
 
     try {
       console.log('🔵 Ejecutando orden real en Coinbase...');
-      
-      // TODO: Implementar llamada real a Coinbase Advanced Trade API
-      // const response = await this.coinbaseConnector.placeOrder(order);
+      const response = await this.coinbaseConnector.placeOrder(
+        order.symbol,
+        order.side,
+        order.quantity,
+        order.price
+      );
 
       return {
         success: true,
-        orderId: `coinbase_${Date.now()}`,
+        orderId: response.order_id,
         exchange: 'coinbase',
         symbol: order.symbol,
         side: order.side,
@@ -249,13 +253,17 @@ export class RealExecutionEngine {
 
     try {
       console.log('🟡 Ejecutando orden real en KuCoin...');
-      
-      // TODO: Implementar llamada real a KuCoin API
-      // const response = await this.kuCoinConnector.placeOrder(order);
+      const response = await this.kuCoinConnector.placeOrder(
+        order.symbol,
+        order.side,
+        order.quantity.toString(),
+        order.price ? order.price.toString() : undefined,
+        order.type
+      );
 
       return {
         success: true,
-        orderId: `kucoin_${Date.now()}`,
+        orderId: response.orderId,
         exchange: 'kucoin',
         symbol: order.symbol,
         side: order.side,
